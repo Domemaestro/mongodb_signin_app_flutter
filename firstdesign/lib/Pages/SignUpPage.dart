@@ -22,7 +22,7 @@ class _signUpPageState extends State<signUpPage> {
 
     // Create a Map containing your data
     var data = {
-      'email': user.name,
+      'name': user.name,
       'password': user.password,
     };
 

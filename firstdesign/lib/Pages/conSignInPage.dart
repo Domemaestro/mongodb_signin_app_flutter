@@ -4,6 +4,7 @@ import 'package:firstdesign/Pages/HomePage.dart';
 import 'package:firstdesign/Pages/SignUpPage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 
 import '../Data/User.dart';
@@ -22,7 +23,7 @@ class _conSignInPageState extends State<conSignInPage> {
 
     // Create a Map containing your data
     var data = {
-      'email': user.name,
+      'name': user.name,
       'password': user.password,
     };
 
@@ -37,8 +38,19 @@ class _conSignInPageState extends State<conSignInPage> {
       body: jsonData, // Use the JSON data here
     );
 
-    print(res.body);
-    Navigator.push(context, MaterialPageRoute(builder: (context) => homePage(name: user.name)));
+    if(res.statusCode == 200){
+      print(res.body);
+      Navigator.push(context, MaterialPageRoute(builder: (context) => homePage(name: user.name)));
+    }else{
+      print("Wrong");
+      Fluttertoast.showToast(msg: "User does not Exist",toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.white70,
+          textColor: Colors.black87,
+          fontSize: 16.0);
+
+    }
   }
 
   User user = User("", ""); //initially empty
